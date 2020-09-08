@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таймер</title>
+
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      font-weight: 100;
+    }
+
+    .countdown_title {
+      color: #396;
+      font-weight: 100;
+      font-size: 40px;
+      margin: 40px 0px 20px;
+    }
+
+    .countdown {
+      font-family: sans-serif;
+      color: #fff;
+      display: inline-block;
+      font-weight: 100;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .countdown_number {
+      width: 70px;
+      padding: 5px;
+      border-radius: 3px;
+      background: #000000;
+      display: inline-block;
+      border-radius: 10px;
+    }
+
+    .countdown_time {
+      padding: 5px;
+      border-radius: 3px;
+      background: #dbdbdb;
+      color: black;
+      display: inline-block;
+    }
+
+    .countdown_text {
+      display: block;
+      padding-top: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="countdown" class="countdown">
+    <div class="countdown_number">
+      <span class="days countdown_time"></span>
+      <span class="countdown_text">Дней</span>
+    </div>
+    <div class="countdown_number">
+      <span class="hours countdown_time"></span>
+      <span class="countdown_text">Часов</span>
+    </div>
+    <div class="countdown_number">
+      <span class="minutes countdown_time"></span>
+      <span class="countdown_text">Минут</span>
+    </div>
+    <div class="countdown_number">
+      <span class="seconds countdown_time"></span>
+      <span class="countdown_text">Секунд</span>
+    </div>
+  </div>
+  <script>
+    function getTimeRemaining(e) {
+      var n = Date.parse(e) - Date.parse(new Date),
+        t = Math.floor(n / 1e3 % 60),
+        r = Math.floor(n / 1e3 / 60 % 60),
+        a = Math.floor(n / 36e5 % 24);
+      return {
+        total: n,
+        days: Math.floor(n / 864e5),
+        hours: a,
+        minutes: r,
+        seconds: t
+      }
+    }
+
+    function initializeClock(e, n) {
+      var t = document.getElementById(e),
+        r = t.querySelector(".days"),
+        a = t.querySelector(".hours"),
+        i = t.querySelector(".minutes"),
+        o = t.querySelector(".seconds");
+
+      function l() {
+        var e = getTimeRemaining(n);
+        r.innerHTML =  e.days, a.innerHTML = ("0" + e.hours).slice(-2), i.innerHTML = ("0" + e.minutes).slice(-2), o
+          .innerHTML = ("0" + e.seconds).slice(-2), e.total <= 0 && clearInterval(s)
+      }
+      l();
+      var s = setInterval(l, 1e3)
+    }
+    // var deadline = "September 09 2020 00:00:00 GMT+0300";
+    var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+    initializeClock("countdown", deadline);
+  </script>
+</body>
+
+</html>
